@@ -7,6 +7,19 @@
 
 using namespace std;
 
+struct four_coordinate {
+    double a;
+    double b;
+    double c;
+    double d;
+};
+
+struct three_coordinate {
+    double x;
+    double y;
+    double z;
+};
+
 struct Edge {
     int u;
     int v;
@@ -94,40 +107,96 @@ vector<std::unordered_map<double, double> > kruskalMST(const vector<std::unorder
         }
     }
 
-    // double max = DBL_MIN;
-    // for (int i = 0; i < n; i++) {
-    //     std::__1::unordered_map<double, double>::iterator it = mst[i].begin();
-    //     while (it != mst[i].end()) {
-    //         if (it->second > max) {
-    //             max = it->second;
-    //         }
-    //         it++;
-    //     }
-    // }
+    double max = DBL_MIN;
+    for (int i = 0; i < n; i++) {
+        std::__1::unordered_map<double, double>::iterator it = mst[i].begin();
+        while (it != mst[i].end()) {
+            if (it->second > max) {
+                max = it->second;
+            }
+            it++;
+        }
+    }
 
-    // printf("%f ", max);
+    printf("%f ", max);
 
     return mst;
 }
 
 vector<std::unordered_map<double, double> > generateCompleteGraph(int n) {
     vector<std::unordered_map<double, double> > graph(n);
+
+    // // UNCOMMENT FOR 4-D COORDINATE EXAMPLE
+    vector<four_coordinate > locs;
+    for (int i = 0; i < n; i++) {
+        four_coordinate loc = {.a = (double) rand() / RAND_MAX, .b = (double) rand() / RAND_MAX, .c = (double) rand() / RAND_MAX, .d = (double) rand() / RAND_MAX};
+        locs.push_back(loc);
+    }
     int count = 0;
     for (int u = 0; u < n; u++) {
         for (int v = u + 1; v < n; v++) {
-            double weight = (double) rand() / RAND_MAX;
-            // if (n <= 1024 && weight < .05 - 4.19153e-05 * n) {
-            //     graph[u].insert(make_pair(v, weight));
-            //     graph[v].insert(make_pair(u, weight));
-            //     count++;
-            // }
-            if (weight < .002 / ((double ) n / 2048)) {
+            double weight = sqrt(pow(locs[u].a - locs[v].a, 2) + pow(locs[u].b - locs[v].b, 2) + pow(locs[u].c - locs[v].c, 2) + pow(locs[u].d - locs[v].d, 2));
+            // if (weight < .18 * pow(2, (-1 * n / 128))) {
                 graph[u].insert(make_pair(v, weight));
-                graph[v].insert(make_pair(u, weight));
                 count++;
-            }     
+            // }
+            
         }
     }
+
+    // // UNCOMMENT FOR 3-D COORDINATE EXAMPLE
+    // vector<three_coordinate > locs;
+    // for (int i = 0; i < n; i++) {
+    //     three_coordinate loc = {.x = (double) rand() / RAND_MAX, .y = (double) rand() / RAND_MAX, .z = (double) rand() / RAND_MAX};
+    //     locs.push_back(loc);
+    // }
+    // int count = 0;
+    // for (int u = 0; u < n; u++) {
+    //     for (int v = u + 1; v < n; v++) {
+    //         double weight = sqrt(pow(locs[u].x - locs[v].x, 2) + pow(locs[u].y - locs[v].y, 2) + pow(locs[u].z - locs[v].z, 2));
+    //         // if (weight < .18 * pow(2, (-1 * n / 128))) {
+    //             graph[u].insert(make_pair(v, weight));
+    //         //     count++;
+    //         // }
+            
+    //     }
+    // }
+
+    // // UNCOMMENT FOR 2-D COORDINATE EXAMPLE
+    // vector<pair<double, double> > locs;
+    // for (int i = 0; i < n; i++) {
+    //     pair<double, double> loc((double) rand() / RAND_MAX, (double) rand() / RAND_MAX);
+    //     locs.push_back(loc);
+    // }
+    // int count = 0;
+    // for (int u = 0; u < n; u++) {
+    //     for (int v = u + 1; v < n; v++) {
+    //         double weight = sqrt(pow(locs[u].first - locs[v].first, 2) + pow(locs[u].second - locs[v].second, 2));
+    //         if (n <= 32768 && weight < .18) {
+    //             graph[u].insert(make_pair(v, weight));
+    //             count++;
+    //         }
+
+    //         else if (weight < .008){
+    //             graph[u].insert(make_pair(v, weight));
+    //             count++;
+    //         }
+            
+    //     }
+    // }
+
+    // UNCOMMENT FOR 0-D COORDINATE EXAMPLE
+    // int count = 0;
+    // for (int u = 0; u < n; u++) {
+    //     for (int v = u + 1; v < n; v++) {
+    //         double weight = (double) rand() / RAND_MAX;
+    //         if (weight < .002 / ((double ) n / 2048)) {
+    //             graph[u].insert(make_pair(v, weight));
+    //             // graph[v].insert(make_pair(u, weight));
+    //             count++;
+    //         }     
+    //     }
+    // }
 
     printf("%i ", count);
 
@@ -137,10 +206,10 @@ vector<std::unordered_map<double, double> > generateCompleteGraph(int n) {
 
 int main() {
     int numTrials = 1;
-    int maxN = 262144;
+    int maxN = 16384;
     vector<double> nValues;
     vector<double> avgWeights;
-    for (int n = 262144; n <= maxN; n *= 2) {
+    for (int n = 128; n <= maxN; n *= 2) {
         double avgWeight = 0;
         for (int i = 0; i < numTrials; i++) {
             vector<std::unordered_map<double, double> > graph = generateCompleteGraph(n);
