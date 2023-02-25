@@ -127,7 +127,7 @@ vector<std::unordered_map<double, double> > kruskalMST(const vector<std::unorder
 vector<std::unordered_map<double, double> > generateCompleteGraph(int n) {
     vector<std::unordered_map<double, double> > graph(n);
 
-    // // UNCOMMENT FOR 4-D COORDINATE EXAMPLE
+    /*// // UNCOMMENT FOR 4-D COORDINATE EXAMPLE
     vector<four_coordinate > locs;
     for (int i = 0; i < n; i++) {
         four_coordinate loc = {.a = (double) rand() / RAND_MAX, .b = (double) rand() / RAND_MAX, .c = (double) rand() / RAND_MAX, .d = (double) rand() / RAND_MAX};
@@ -138,12 +138,12 @@ vector<std::unordered_map<double, double> > generateCompleteGraph(int n) {
         for (int v = u + 1; v < n; v++) {
             double weight = abs(locs[u].a - locs[v].a) + abs(locs[u].b - locs[v].b) + abs(locs[u].c - locs[v].c) + abs(locs[u].d - locs[v].d);
             if (weight < 2.1 * pow(n,-.238)) {
-                weight = pow(locs[u].a - locs[v].a, 2) + pow(locs[u].b - locs[v].b, 2) + pow(locs[u].c - locs[v].c, 2) + pow(locs[u].d - locs[v].d, 2);
+                weight = sqrt(pow(locs[u].a - locs[v].a, 2) + pow(locs[u].b - locs[v].b, 2) + pow(locs[u].c - locs[v].c, 2) + pow(locs[u].d - locs[v].d, 2));
                 graph[u].insert(make_pair(v, weight));
                 count++;
             }
         }
-    }
+    }*/
     /*
     //UNCOMMENT FOR 3-D COORDINATE EXAMPLE
     
@@ -161,7 +161,7 @@ vector<std::unordered_map<double, double> > generateCompleteGraph(int n) {
              double weight = manhattan;
               if (weight < 2.12 * pow(n, -.328)) {
                 
-                weight = pow(locs[u].x - locs[v].x, 2) + pow(locs[u].y - locs[v].y, 2) + pow(locs[u].z - locs[v].z, 2);
+                weight = sqrt(pow(locs[u].x - locs[v].x, 2) + pow(locs[u].y - locs[v].y, 2) + pow(locs[u].z - locs[v].z, 2));
                 graph[u].insert(make_pair(v, weight));
                 count++;
              }
@@ -169,7 +169,7 @@ vector<std::unordered_map<double, double> > generateCompleteGraph(int n) {
      }*/
      
 
-    // // UNCOMMENT FOR 2-D COORDINATE EXAMPLE
+    // UNCOMMENT FOR 2-D COORDINATE EXAMPLE
     // vector<pair<double, double> > locs;
     // for (int i = 0; i < n; i++) {
     //     pair<double, double> loc((double) rand() / RAND_MAX, (double) rand() / RAND_MAX);
@@ -178,7 +178,7 @@ vector<std::unordered_map<double, double> > generateCompleteGraph(int n) {
     // int count = 0;
     // for (int u = 0; u < n; u++) {
     //     for (int v = u + 1; v < n; v++) {
-    //         double weight = pow(locs[u].first - locs[v].first, 2) + pow(locs[u].second - locs[v].second, 2);
+    //         double weight = sqrt(pow(locs[u].first - locs[v].first, 2) + pow(locs[u].second - locs[v].second, 2));
     //         if (weight < 1.74*pow(n,-0.489)) {
     //             graph[u].insert(make_pair(v, weight));
     //             count++;
@@ -186,18 +186,18 @@ vector<std::unordered_map<double, double> > generateCompleteGraph(int n) {
     //     }
     // }
 
-    // UNCOMMENT FOR 0-D COORDINATE EXAMPLE
-    // int count = 0;
-    // for (int u = 0; u < n; u++) {
-    //     for (int v = u + 1; v < n; v++) {
-    //         double weight = (double) rand() / RAND_MAX;
-    //         if (weight < .002 / ((double ) n / 2048)) {
-    //             graph[u].insert(make_pair(v, weight));
-    //             // graph[v].insert(make_pair(u, weight));
-    //             count++;
-    //         }     
-    //     }
-    // }
+     //UNCOMMENT FOR 0-D COORDINATE EXAMPLE
+    int count = 0;
+    for (int u = 0; u < n; u++) {
+         for (int v = u + 1; v < n; v++) {
+             double weight = (double) rand() / RAND_MAX;
+             if (weight < 4.01 * pow(n,-0.998)) {
+                 graph[u].insert(make_pair(v, weight));
+                // graph[v].insert(make_pair(u, weight));
+                 count++;
+             }     
+         }
+     }
 
     printf("%i ", count);
 
@@ -219,7 +219,7 @@ int main() {
             for (int u = 0; u < n; u++) {
                 std::__1::unordered_map<double, double>::iterator testing = mst[u].begin();
                 while (testing != mst[u].end()) {
-                    total_weight += sqrt(testing->second); // take the square root of the squared weight
+                    total_weight += testing->second; // take the square root of the squared weight
                     testing++;
                 }
             }
