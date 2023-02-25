@@ -127,46 +127,46 @@ vector<std::unordered_map<double, double> > kruskalMST(const vector<std::unorder
 vector<std::unordered_map<double, double> > generateCompleteGraph(int n) {
     vector<std::unordered_map<double, double> > graph(n);
 
-    /*// // UNCOMMENT FOR 4-D COORDINATE EXAMPLE
-    vector<four_coordinate > locs;
-    for (int i = 0; i < n; i++) {
-        four_coordinate loc = {.a = (double) rand() / RAND_MAX, .b = (double) rand() / RAND_MAX, .c = (double) rand() / RAND_MAX, .d = (double) rand() / RAND_MAX};
-        locs.push_back(loc);
-    }
-    int count = 0;
-    for (int u = 0; u < n; u++) {
-        for (int v = u + 1; v < n; v++) {
-            double weight = abs(locs[u].a - locs[v].a) + abs(locs[u].b - locs[v].b) + abs(locs[u].c - locs[v].c) + abs(locs[u].d - locs[v].d);
-            if (weight < 2.1 * pow(n,-.238)) {
-                weight = sqrt(pow(locs[u].a - locs[v].a, 2) + pow(locs[u].b - locs[v].b, 2) + pow(locs[u].c - locs[v].c, 2) + pow(locs[u].d - locs[v].d, 2));
-                graph[u].insert(make_pair(v, weight));
-                count++;
-            }
-        }
-    }*/
-    /*
-    //UNCOMMENT FOR 3-D COORDINATE EXAMPLE
+    // // // UNCOMMENT FOR 4-D COORDINATE EXAMPLE
+    // vector<four_coordinate > locs;
+    // for (int i = 0; i < n; i++) {
+    //     four_coordinate loc = {.a = (double) rand() / RAND_MAX, .b = (double) rand() / RAND_MAX, .c = (double) rand() / RAND_MAX, .d = (double) rand() / RAND_MAX};
+    //     locs.push_back(loc);
+    // }
+    // int count = 0;
+    // for (int u = 0; u < n; u++) {
+    //     for (int v = u + 1; v < n; v++) {
+    //         double weight = abs(locs[u].a - locs[v].a) + abs(locs[u].b - locs[v].b) + abs(locs[u].c - locs[v].c) + abs(locs[u].d - locs[v].d);
+    //         if (weight < 2.1 * pow(n,-.238)) {
+    //             weight = sqrt(pow(locs[u].a - locs[v].a, 2) + pow(locs[u].b - locs[v].b, 2) + pow(locs[u].c - locs[v].c, 2) + pow(locs[u].d - locs[v].d, 2));
+    //             graph[u].insert(make_pair(v, weight));
+    //             count++;
+    //         }
+    //     }
+    // }
     
-     vector<three_coordinate > locs;
+    // //UNCOMMENT FOR 3-D COORDINATE EXAMPLE
+    
+    //  vector<three_coordinate > locs;
      
-     for (int i = 0; i < n; i++) {
-         three_coordinate loc = {.x = (double) rand() / RAND_MAX, .y = (double) rand() / RAND_MAX, .z = (double) rand() / RAND_MAX};
-         locs.push_back(loc);
-     }
-     double sqrt3 = sqrt(3);
-     int count = 0;
-     for (int u = 0; u < n; u++) {
-         for (int v = u + 1; v < n; v++) {
-             double manhattan = abs(locs[u].x - locs[v].x) + abs(locs[u].y - locs[v].y) + abs(locs[u].z - locs[v].z);
-             double weight = manhattan;
-              if (weight < 2.12 * pow(n, -.328)) {
+    //  for (int i = 0; i < n; i++) {
+    //      three_coordinate loc = {.x = (double) rand() / RAND_MAX, .y = (double) rand() / RAND_MAX, .z = (double) rand() / RAND_MAX};
+    //      locs.push_back(loc);
+    //  }
+    //  double sqrt3 = sqrt(3);
+    //  int count = 0;
+    //  for (int u = 0; u < n; u++) {
+    //      for (int v = u + 1; v < n; v++) {
+    //          double manhattan = abs(locs[u].x - locs[v].x) + abs(locs[u].y - locs[v].y) + abs(locs[u].z - locs[v].z);
+    //          double weight = manhattan;
+    //           if (weight < 2.12 * pow(n, -.328)) {
                 
-                weight = sqrt(pow(locs[u].x - locs[v].x, 2) + pow(locs[u].y - locs[v].y, 2) + pow(locs[u].z - locs[v].z, 2));
-                graph[u].insert(make_pair(v, weight));
-                count++;
-             }
-         }
-     }*/
+    //             weight = sqrt(pow(locs[u].x - locs[v].x, 2) + pow(locs[u].y - locs[v].y, 2) + pow(locs[u].z - locs[v].z, 2));
+    //             graph[u].insert(make_pair(v, weight));
+    //             count++;
+    //          }
+    //      }
+    //  }
      
 
     // UNCOMMENT FOR 2-D COORDINATE EXAMPLE
@@ -206,7 +206,7 @@ vector<std::unordered_map<double, double> > generateCompleteGraph(int n) {
 
 
 int main() {
-    int numTrials = 1;
+    int numTrials = 5;
     int maxN = 262144;
     vector<double> nValues;
     vector<double> avgWeights;
