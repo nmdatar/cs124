@@ -1,6 +1,7 @@
 # cs124
 
 Run the makefile with 
+`cd progset1`
 `make randmst`
 `./randmst`
 
