@@ -136,33 +136,38 @@ vector<std::unordered_map<double, double> > generateCompleteGraph(int n) {
     int count = 0;
     for (int u = 0; u < n; u++) {
         for (int v = u + 1; v < n; v++) {
-            double weight = pow(locs[u].a - locs[v].a, 2) + pow(locs[u].b - locs[v].b, 2) + pow(locs[u].c - locs[v].c, 2) + pow(locs[u].d - locs[v].d, 2);
-            if (weight < 2.15 * pow(n, -.519)) {
+            double weight = abs(locs[u].a - locs[v].a) + abs(locs[u].b - locs[v].b) + abs(locs[u].c - locs[v].c) + abs(locs[u].d - locs[v].d);
+            if (weight < 2.1 * pow(n,-.238)) {
+                weight = pow(locs[u].a - locs[v].a, 2) + pow(locs[u].b - locs[v].b, 2) + pow(locs[u].c - locs[v].c, 2) + pow(locs[u].d - locs[v].d, 2);
                 graph[u].insert(make_pair(v, weight));
                 count++;
             }
-            
         }
     }
-
-    //UNCOMMENT FOR 3-D COORDINATE EXAMPLE
     /*
+    //UNCOMMENT FOR 3-D COORDINATE EXAMPLE
+    
      vector<three_coordinate > locs;
+     
      for (int i = 0; i < n; i++) {
          three_coordinate loc = {.x = (double) rand() / RAND_MAX, .y = (double) rand() / RAND_MAX, .z = (double) rand() / RAND_MAX};
          locs.push_back(loc);
      }
+     double sqrt3 = sqrt(3);
      int count = 0;
      for (int u = 0; u < n; u++) {
          for (int v = u + 1; v < n; v++) {
-             double weight = pow(locs[u].x - locs[v].x, 2) + pow(locs[u].y - locs[v].y, 2) + pow(locs[u].z - locs[v].z, 2);
-              if (weight < pow(1.39 * pow(n,-0.33),2)) {
+             double manhattan = abs(locs[u].x - locs[v].x) + abs(locs[u].y - locs[v].y) + abs(locs[u].z - locs[v].z);
+             double weight = manhattan;
+              if (weight < 2.12 * pow(n, -.328)) {
+                
+                weight = pow(locs[u].x - locs[v].x, 2) + pow(locs[u].y - locs[v].y, 2) + pow(locs[u].z - locs[v].z, 2);
                 graph[u].insert(make_pair(v, weight));
                 count++;
              }
          }
-     }
-     */
+     }*/
+     
 
     // // UNCOMMENT FOR 2-D COORDINATE EXAMPLE
     // vector<pair<double, double> > locs;
@@ -205,7 +210,7 @@ int main() {
     int maxN = 262144;
     vector<double> nValues;
     vector<double> avgWeights;
-    for (int n = 128; n <= maxN; n *= 2) {
+    for (int n = 128; n <= 32768; n *= 2) {
         double avgWeight = 0;
         for (int i = 0; i < numTrials; i++) {
             vector<std::unordered_map<double, double> > graph = generateCompleteGraph(n);
